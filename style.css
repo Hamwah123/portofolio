@@ -1,0 +1,1313 @@
+/* ============================================================ */
+/* IMPORT FONT                                                  */
+/* ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+/* ============================================================ */
+/* AKHIR IMPORT FONT                                            */
+/* ============================================================ */
+
+
+/* ============================================================ */
+/* VARIABEL TEMA (DARK MODE & LIGHT MODE)                       */
+/* ============================================================ */
+:root {
+    /* Warna Aksen */
+    --accent:        #6c63ff;
+    --accent-light:  #8b85ff;
+    --accent-dark:   #4f48cc;
+
+    /* Transisi */
+    --transition: 0.3s ease;
+
+    /* Ukuran */
+    --navbar-h: 70px;
+    --radius:   12px;
+    --radius-sm: 8px;
+}
+
+/* DARK MODE - Default */
+[data-theme="dark"] {
+    --bg-primary:   #0d0d0d;
+    --bg-secondary: #141414;
+    --bg-card:      #1a1a1a;
+    --bg-input:     #222222;
+    --border:       #2a2a2a;
+
+    --text-primary:   #f0f0f0;
+    --text-secondary: #a0a0a0;
+    --text-muted:     #666666;
+}
+
+/* LIGHT MODE */
+[data-theme="light"] {
+    --bg-primary:   #f8f8fc;
+    --bg-secondary: #ffffff;
+    --bg-card:      #ffffff;
+    --bg-input:     #f0f0f8;
+    --border:       #e4e4f0;
+
+    --text-primary:   #1a1a2e;
+    --text-secondary: #555577;
+    --text-muted:     #999aaa;
+}
+/* ============================================================ */
+/* AKHIR VARIABEL TEMA                                          */
+/* ============================================================ */
+
+
+/* ============================================================ */
+/* RESET & BASE                                                 */
+/* ============================================================ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--navbar-h);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    transition: background-color var(--transition), color var(--transition);
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.section {
+    padding: 100px 0;
+}
+
+.accent {
+    color: var(--accent);
+}
+/* ============================================================ */
+/* AKHIR RESET & BASE                                           */
+/* ============================================================ */
+
+
+/* ============================================================ */
+/* NAVIGASI                                                     */
+/* ============================================================ */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--navbar-h);
+    z-index: 1000;
+    background-color: transparent;
+    transition: background-color var(--transition),
+                box-shadow var(--transition),
+                backdrop-filter var(--transition);
+}
+
+.navbar.scrolled {
+    background-color: var(--bg-secondary);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* LOGO NAVIGASI */
+.nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+    transition: opacity var(--transition);
+}
+
+.nav-logo:hover {
+    opacity: 0.8;
+}
+/* AKHIR LOGO NAVIGASI */
+
+/* MENU NAVIGASI */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.nav-link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    position: relative;
+    transition: color var(--transition);
+    letter-spacing: 0.3px;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width var(--transition);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--accent);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+/* AKHIR MENU NAVIGASI */
+
+/* TOMBOL AKSI NAVIGASI */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* TOMBOL TOGGLE TEMA */
+.theme-toggle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+    position: relative;
+}
+
+.theme-toggle:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+[data-theme="dark"] #iconMoon { display: none; }
+[data-theme="dark"] #iconSun  { display: block; }
+[data-theme="light"] #iconSun  { display: none; }
+[data-theme="light"] #iconMoon { display: block; }
+/* AKHIR TOMBOL TOGGLE TEMA */
+
+/* HAMBURGER MENU MOBILE */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 4px;
+}
+
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: all var(--transition);
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+/* AKHIR HAMBURGER MENU MOBILE */
+/* ============================================================ */
+/* AKHIR NAVIGASI                                               */
+/* ============================================================ */
+
+
+/* ============================================================ */
+/* SECTION HEADER (JUDUL SECTION)                              */
+/* ============================================================ */
+.section-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+
+.section-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+/* ============================================================ */
+/* AKHIR SECTION HEADER                                         */
+/* ============================================================ */
+
+
+/* ============================================================ */
+/* TOMBOL (BUTTON)                                              */
+/* ============================================================ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all var(--transition);
+    letter-spacing: 0.3px;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(108, 99, 255, 0.35);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+}
+
+.btn-outline:hover {
+    background: var(--accent);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.btn-full {
+    width: 100%;
+    justify-content: center;
+}
+/* ============================================================ */
+/* AKHIR TOMBOL                                                 */
+/* ============================================================ */
+
+
+/* ============================================================ */
+/* SECTION HOME / HERO                                          */
+/* ============================================================ */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: var(--navbar-h);
+    position: relative;
+    background: radial-gradient(ellipse at 70% 50%, rgba(108, 99, 255, 0.08) 0%, transparent 60%);
+}
+
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+}
+
+/* FOTO PROFIL HERO */
+.hero-image {
+    display: flex;
+    justify-content: center;
+    order: 2;
+}
+
+.profile-frame {
+    width: 340px;
+    height: 340px;
+    border-radius: 40% 60% 60% 40% / 50% 50% 60% 40%;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    padding: 5px;
+    animation: morphBlob 8s ease-in-out infinite;
+    box-shadow: 0 0 60px rgba(108, 99, 255, 0.3);
+}
+
+@keyframes morphBlob {
+    0%   { border-radius: 40% 60% 60% 40% / 50% 50% 60% 40%; }
+    50%  { border-radius: 60% 40% 40% 60% / 40% 60% 50% 50%; }
+    100% { border-radius: 40% 60% 60% 40% / 50% 50% 60% 40%; }
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+/* AKHIR FOTO PROFIL HERO */
+
+/* TEKS HERO */
+.hero-text {
+    order: 1;
+}
+
+.hero-greeting {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.hero-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--text-primary) 60%, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.role-tag {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    background: rgba(108, 99, 255, 0.12);
+    color: var(--accent);
+    border: 1px solid rgba(108, 99, 255, 0.3);
+    border-radius: 999px;
+}
+
+.hero-desc {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 480px;
+}
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.hero-socials {
+    display: flex;
+    gap: 1rem;
+}
+
+.hero-socials a {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    transition: all var(--transition);
+}
+
+.hero-socials a:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    transform: translateY(-3px);
+}
+/* AKHIR TEKS HERO */
+
+/* SCROLL DOWN INDICATOR */
+.scroll-down {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    animation: bounce 2s ease-in-out infinite;
+    transition: all var(--transition);
+}
+
+.scroll-down:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(8px); }
+}
+/* ============================================================ */
+/* AKHIR SECTION HOME / HERO                                    */
+/* ============================================================ */
+
+
+/* ============================================================ */
+/* SECTION ABOUT ME                                             */
+/* ============================================================ */
+.about-section {
+    background: var(--bg-secondary);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+/* FOTO ABOUT */
+.about-img-wrapper {
+    position: relative;
+}
+
+.about-img-wrapper img {
+    width: 100%;
+    border-radius: 20px;
+    object-fit: cover;
+    aspect-ratio: 4/5;
+}
+
+.about-badge {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    background: var(--accent);
+    color: #fff;
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(108, 99, 255, 0.4);
+}
+
+.badge-num {
+    display: block;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.badge-text {
+    font-size: 0.75rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+/* AKHIR FOTO ABOUT */
+
+/* INFORMASI ABOUT */
+.about-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.about-role {
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+}
+
+.about-bio {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.about-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.detail-item i {
+    color: var(--accent);
+    font-size: 1rem;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.detail-label {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.detail-value {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+/* AKHIR INFORMASI ABOUT */
+/* ============================================================ */
+/* AKHIR SECTION ABOUT ME                                       */
+/* ============================================================ */
+
+
+/* ============================================================ */
+/* SECTION SKILLS                                               */
+/* ============================================================ */
+.skills-section {
+    background: var(--bg-primary);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* KARTU KATEGORI SKILL */
+.skill-category {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.skill-category:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+}
+
+.category-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text-primary);
+}
+
+.category-title i {
+    color: var(--accent);
+}
+/* AKHIR KARTU KATEGORI SKILL */
+
+/* SKILL BAR */
+.skill-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.skill-bar-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.skill-bar-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.skill-bar-track {
+    height: 8px;
+    background: var(--bg-input);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.skill-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+    border-radius: 999px;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* AKHIR SKILL BAR */
+
+/* SKILL TAG (untuk kategori tools) */
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.skill-tag {
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 0.45rem 0.9rem;
+    background: rgba(108, 99, 255, 0.1);
+    color: var(--accent);
+    border: 1px solid rgba(108, 99, 255, 0.25);
+    border-radius: 999px;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.skill-tag:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+/* AKHIR SKILL TAG */
+/* ============================================================ */
+/* AKHIR SECTION SKILLS                                         */
+/* ============================================================ */
+
+
+/* ============================================================ */
+/* SECTION PORTFOLIO                                            */
+/* ============================================================ */
+.portfolio-section {
+    background: var(--bg-secondary);
+}
+
+/* FILTER PORTFOLIO */
+.portfolio-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+}
+
+.filter-btn {
+    padding: 0.5rem 1.4rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    transition: all var(--transition);
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+/* AKHIR FILTER PORTFOLIO */
+
+/* GRID KARTU PORTFOLIO */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.75rem;
+}
+
+.portfolio-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.portfolio-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+}
+
+.portfolio-card.hidden {
+    display: none;
+}
+
+/* GAMBAR KARTU */
+.card-image {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition);
+}
+
+.portfolio-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+/* OVERLAY KARTU */
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(108, 99, 255, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.portfolio-card:hover .card-overlay {
+    opacity: 1;
+}
+
+.overlay-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.1rem;
+    background: #ffffff;
+    color: var(--accent);
+    border-radius: var(--radius-sm);
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: all var(--transition);
+}
+
+.overlay-btn:hover {
+    background: var(--accent);
+    color: #fff;
+}
+/* AKHIR GAMBAR & OVERLAY KARTU */
+
+/* BODY KARTU */
+.card-body {
+    padding: 1.25rem;
+}
+
+.card-category {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.card-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.card-techs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.card-techs span {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    background: var(--bg-input);
+    color: var(--text-secondary);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+}
+/* ============================================================ */
+/* AKHIR SECTION PORTFOLIO                                      */
+/* ============================================================ */
+
+
+/* ============================================================ */
+/* SECTION CONTACT / KONTAK                                     */
+/* ============================================================ */
+.contact-section {
+    background: var(--bg-primary);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+/* INFO KONTAK */
+.contact-intro {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.contact-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(108, 99, 255, 0.1);
+    border: 1px solid rgba(108, 99, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 1rem;
+    flex-shrink: 0;
+    transition: all var(--transition);
+}
+
+.contact-item:hover .contact-icon {
+    background: var(--accent);
+    color: #fff;
+}
+
+.contact-label {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.contact-value {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    transition: color var(--transition);
+}
+
+.contact-value:hover {
+    color: var(--accent);
+}
+/* AKHIR INFO KONTAK */
+
+/* FORM KONTAK */
+.contact-form {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-group label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.3px;
+}
+
+.form-group input,
+.form-group textarea {
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-muted);
+}
+
+/* STATUS FORM */
+.form-status {
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    min-height: 20px;
+    transition: all var(--transition);
+}
+
+.form-status.success { color: #22c55e; }
+.form-status.error   { color: #ef4444; }
+/* ============================================================ */
+/* AKHIR SECTION CONTACT / KONTAK                               */
+/* ============================================================ */
+
+
+/* ============================================================ */
+/* FOOTER                                                       */
+/* ============================================================ */
+.footer {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    padding: 3rem 0 1.5rem;
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2.5rem;
+}
+
+/* BRAND FOOTER */
+.footer-tagline {
+    margin-top: 0.75rem;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 260px;
+}
+/* AKHIR BRAND FOOTER */
+
+/* TAUTAN FOOTER */
+.footer-links h4,
+.footer-socials h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    letter-spacing: 0.3px;
+}
+
+.footer-links ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.footer-links ul li a {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    transition: color var(--transition);
+}
+
+.footer-links ul li a:hover {
+    color: var(--accent);
+}
+/* AKHIR TAUTAN FOOTER */
+
+/* SOSIAL MEDIA FOOTER */
+.footer-social-icons {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.footer-social-icons a {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    transition: all var(--transition);
+}
+
+.footer-social-icons a:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+/* AKHIR SOSIAL MEDIA FOOTER */
+
+/* GARIS & COPYRIGHT FOOTER */
+.footer-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.footer-bottom p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+/* ============================================================ */
+/* AKHIR FOOTER                                                 */
+/* ============================================================ */
+
+
+/* ============================================================ */
+/* TOMBOL BACK TO TOP                                           */
+/* ============================================================ */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #ffffff;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(108, 99, 255, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: all var(--transition);
+    z-index: 999;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: var(--accent-dark);
+    transform: translateY(-3px);
+}
+/* ============================================================ */
+/* AKHIR TOMBOL BACK TO TOP                                     */
+/* ============================================================ */
+
+
+/* ============================================================ */
+/* ANIMASI FADE-IN SAAT SCROLL                                  */
+/* ============================================================ */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* ============================================================ */
+/* AKHIR ANIMASI FADE-IN                                        */
+/* ============================================================ */
+
+
+/* ============================================================ */
+/* RESPONSIVE MOBILE                                            */
+/* ============================================================ */
+@media (max-width: 992px) {
+
+    /* NAVIGASI MOBILE */
+    .nav-menu {
+        position: fixed;
+        top: var(--navbar-h);
+        right: -100%;
+        width: 260px;
+        height: calc(100vh - var(--navbar-h));
+        background: var(--bg-secondary);
+        border-left: 1px solid var(--border);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2rem 1.5rem;
+        gap: 0.5rem;
+        transition: right var(--transition);
+    }
+
+    .nav-menu.open {
+        right: 0;
+    }
+
+    .nav-link {
+        font-size: 1rem;
+        padding: 0.6rem 0;
+        width: 100%;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+    /* AKHIR NAVIGASI MOBILE */
+
+    /* HERO MOBILE */
+    .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2.5rem;
+    }
+
+    .hero-image { order: 1; }
+    .hero-text  { order: 2; }
+
+    .profile-frame {
+        width: 260px;
+        height: 260px;
+    }
+
+    .hero-roles,
+    .hero-buttons,
+    .hero-socials {
+        justify-content: center;
+    }
+
+    .hero-desc {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* ABOUT MOBILE */
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .about-badge {
+        right: 0;
+    }
+
+    /* CONTACT MOBILE */
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    /* FOOTER MOBILE */
+    .footer-top {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .section { padding: 70px 0; }
+
+    .about-details {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-top {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+/* ============================================================ */
+/* AKHIR RESPONSIVE MOBILE                                      */
+/* ============================================================ */
